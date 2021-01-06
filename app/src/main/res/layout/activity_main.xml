@@ -28,10 +28,17 @@
         android:layout_height="wrap_content"
         android:text="Não lançado" />
 
-    <ImageView
-        android:id="@+id/resultadoIv"
-        android:layout_width="69dp"
-        android:layout_height="71dp"
-        android:background="@drawable/dice_1" />
+    <ScrollView
+        android:id="@+id/sv_dices"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/ll_dices"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </ScrollView>
 
 </LinearLayout>

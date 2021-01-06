@@ -1,5 +1,6 @@
 package br.edu.ifsp.scl.ads.s5.pdm.dices
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -7,6 +8,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import android.widget.ImageView
 import br.edu.ifsp.scl.ads.s5.pdm.dices.databinding.ActivityMainBinding
 import kotlin.random.Random
 
@@ -20,14 +22,23 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onClick(view: View) {
+        val shared = getSharedPreferences("PREFERENCES", Context.MODE_PRIVATE)
+
+        val dicesAmount = shared.getInt(getString(R.string.saved_dices_amount), 1)
+        val facesAmount = shared.getInt(getString(R.string.saved_faces_amount), 6)
+
         if (view == activityMainBinding.jogarBt) {
-            val resultado: Int = Random(System.currentTimeMillis()).nextInt(6) + 1;
-            activityMainBinding.resultadoTv.text = resultado.toString()
-            // Gerando nome da imagem
-            val resultadoImagem = "dice_$resultado"
-            activityMainBinding.resultadoIv.setImageResource(
-                    resources.getIdentifier(resultadoImagem, "drawable", packageName)
-            )
+            activityMainBinding.llDices.removeAllViews()
+            for (i in 1..dicesAmount) {
+                val resultado: Int = Random(System.currentTimeMillis()).nextInt(facesAmount) + 1;
+
+                activityMainBinding.resultadoTv.text = activityMainBinding.resultadoTv.text.let { "$it  $resultado" }
+                val resultadoImagem = "dice_$resultado"
+
+                val iv = ImageView(this)
+                iv.setImageResource(resources.getIdentifier(resultadoImagem, "drawable", packageName))
+                activityMainBinding.llDices.addView(iv)
+            }
         }
     }
 

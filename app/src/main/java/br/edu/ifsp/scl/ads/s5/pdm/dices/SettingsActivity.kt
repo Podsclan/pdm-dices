@@ -7,6 +7,7 @@ import android.view.View
 import br.edu.ifsp.scl.ads.s5.pdm.dices.databinding.ActivitySettingsBinding
 
 class SettingsActivity : AppCompatActivity() {
+
     private lateinit var activitySettingsBinding: ActivitySettingsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,9 +18,9 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     fun onSave(view: View) {
-        val dicesAmount = activitySettingsBinding.etDicesAmount.text.toString().toInt()
-        val facesAmount = activitySettingsBinding.etFacesAmount.text.toString().toInt()
-        val shared = getPreferences(Context.MODE_PRIVATE)
+        val dicesAmount = activitySettingsBinding.etDicesAmount.text.toString()?.toInt()
+        val facesAmount = activitySettingsBinding.etFacesAmount.text.toString()?.toInt()
+        val shared = getSharedPreferences("PREFERENCES", Context.MODE_PRIVATE)
 
         with(shared.edit()) {
             putInt(getString(R.string.saved_dices_amount), dicesAmount)
@@ -29,4 +30,5 @@ class SettingsActivity : AppCompatActivity() {
 
         finish()
     }
+
 }
